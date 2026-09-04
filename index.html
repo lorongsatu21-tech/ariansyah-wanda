@@ -504,6 +504,93 @@
   }
   #galeri{ display:none !important; }
 
+  .scroll-toggle{
+    position:fixed;
+    right:max(18px, env(safe-area-inset-right));
+    bottom:max(76px, calc(env(safe-area-inset-bottom) + 76px));
+    z-index:50;
+    width:50px; height:50px; border-radius:50%;
+    background:#111; color:#E8D5A3;
+    border:1.5px solid #C5A15C;
+    display:none; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:var(--shadow);
+  }
+  #site.revealed .scroll-toggle{ display:flex; }
+  .scroll-toggle svg{ width:20px; height:20px; }
+  .scroll-toggle .icon-play{ display:none; }
+  .scroll-toggle .icon-pause{ display:block; }
+  .scroll-toggle:not(.running) .icon-play{ display:block; }
+  .scroll-toggle:not(.running) .icon-pause{ display:none; }
+
+  html, body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .cover-greeting{
+    font-family:'Amiri', serif !important;
+    font-size: clamp(17px, 4.4vw, 22px);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+  .cover-card{ padding: 40px 22px 36px; }
+  .cover-eyebrow{ letter-spacing: 3.5px; font-size: 11px; }
+  .cover-guest{
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 0 8px;
+  }
+  .cover-guest strong{
+    font-size: clamp(17px, 4.8vw, 22px);
+    line-height: 1.35;
+    margin-top: 8px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  section{ padding: 56px 18px 72px; }
+  .section-inner{ padding: 0 2px; }
+  h2.section-title{
+    font-size: clamp(24px, 6.4vw, 32px) !important;
+    line-height: 1.28;
+    letter-spacing: 0.01em;
+    margin: 8px 0 6px;
+  }
+  .eyebrow{
+    font-size: 10px;
+    letter-spacing: 2.6px;
+    line-height: 1.5;
+  }
+  .quote-text{
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: clamp(16px, 4.3vw, 18.5px) !important;
+    line-height: 1.85 !important;
+    font-weight: 500;
+  }
+  .quote-arch{ padding: 28px 20px 24px; }
+  .couple-nick{ letter-spacing: 2.4px; margin: 6px 0 12px; }
+  .couple-parents{
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .acara-card{ padding: 22px 18px; margin: 14px auto; }
+  .acara-kind{ letter-spacing: 2px; font-size: 11px; }
+  .acara-date{ font-size: clamp(18px, 5vw, 22px); line-height: 1.35; margin: 8px 0; }
+  .acara-detail{ font-size: 15px; line-height: 1.7; }
+  .cd-grid{ gap: 8px; }
+  .cd-box{ padding: 14px 8px; min-width: 64px; }
+  .cd-num{ font-size: clamp(22px, 6vw, 28px) !important; line-height: 1.1; }
+  .cd-label{ font-size: 9px; letter-spacing: 1.4px; margin-top: 6px; }
+  .penutup-text{ font-size: clamp(15.5px, 4.2vw, 17.5px) !important; line-height: 1.85 !important; padding: 0 6px; }
+  .rsvp-form label{ letter-spacing: 1.4px; }
+  .wish-item{ text-align: left; line-height: 1.55; }
+  .created-by{ letter-spacing: 1.8px; font-size: 10px; padding: 11px 18px; }
+
+  @media (max-width: 420px){
+    .cover-names{ font-size: clamp(26px, 9.5vw, 38px) !important; }
+    .cover-card{ padding: 32px 16px 28px; }
+    section{ padding: 48px 16px 80px; }
+    .couple-name{ font-size: clamp(15px, 5.2vw, 19px) !important; }
+  }
+
+
   .name-word{
     display: inline-block;
     white-space: nowrap;
@@ -696,6 +783,10 @@
 <div id="site">
 
   <audio id="bgm" src="musik.mp3" loop preload="auto"></audio>
+  <button id="scrollToggle" class="scroll-toggle running" aria-label="Berhenti auto-scroll" aria-pressed="true">
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M8 9l4 5 4-5"/></svg>
+  </button>
   <button id="musicToggle" class="music-toggle" aria-label="Putar atau jeda musik">
     <svg class="music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <circle cx="8" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M11 18V4l10-2v14"/>
@@ -1008,6 +1099,16 @@
     musicOn ? stopMusic() : startMusic();
   });
 
+  document.getElementById('scrollToggle').addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!autoScrollActive){
+      autoScrollActive = true;
+      resumeAutoScroll();
+      return;
+    }
+    autoScrollTimer ? pauseAutoScroll() : resumeAutoScroll();
+  });
+
   // ---- Auto-scroll after opening ----
   // Click/tap anywhere (outside links, buttons, form fields) toggles pause/resume.
   // Manual scrolling or dragging also pauses it, without permanently cancelling.
@@ -1024,12 +1125,22 @@
     }
     window.scrollBy(0, scrollSpeed);
   }
+  function syncScrollButton(){
+    const btn = document.getElementById('scrollToggle');
+    if (!btn) return;
+    const running = !!autoScrollTimer;
+    btn.classList.toggle('running', running);
+    btn.setAttribute('aria-pressed', running ? 'true' : 'false');
+    btn.setAttribute('aria-label', running ? 'Berhenti auto-scroll' : 'Jalankan auto-scroll');
+  }
   function pauseAutoScroll(){
     if (autoScrollTimer){ clearInterval(autoScrollTimer); autoScrollTimer = null; }
+    syncScrollButton();
   }
   function resumeAutoScroll(){
     if (!autoScrollActive || autoScrollTimer) return;
     autoScrollTimer = setInterval(tickAutoScroll, 16);
+    syncScrollButton();
   }
   function toggleAutoScroll(e){
     if (!autoScrollActive) return;
