@@ -6,7 +6,7 @@
 <title>Undangan Pernikahan — Ariansyah & Wanda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --emerald-deep:#070707;
@@ -503,6 +503,53 @@
     background: rgba(197,161,92,0.12) !important;
   }
   #galeri{ display:none !important; }
+  /* fraunces acara */
+
+  .acara-kind,
+  .acara-date,
+  .acara-time,
+  .acara-zone,
+  .acara-detail {
+    font-family: 'Fraunces', 'Cormorant Garamond', serif !important;
+  }
+  .acara-kind{
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.18em !important;
+    font-variation-settings: "opsz" 18, "SOFT" 30, "WONK" 1;
+  }
+  .acara-date{
+    font-style: italic !important;
+    font-weight: 500 !important;
+    font-size: clamp(19px, 5.4vw, 24px) !important;
+    letter-spacing: 0.01em !important;
+    font-variation-settings: "opsz" 36, "SOFT" 50, "WONK" 1;
+  }
+  .acara-time{
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 36px !important;
+    letter-spacing: 0.08em !important;
+    font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 0;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  @media (max-width: 420px){
+    .acara-time{ font-size: 34px !important; }
+  }
+  .acara-zone{
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.04em !important;
+    text-transform: none !important;
+    font-variation-settings: "opsz" 20, "SOFT" 40;
+  }
+  .acara-detail{
+    font-weight: 500 !important;
+    font-size: clamp(16px, 4.3vw, 18px) !important;
+    line-height: 1.7 !important;
+    font-variation-settings: "opsz" 22, "SOFT" 40, "WONK" 1;
+  }
+
 
   .acara-kind{
     font-family:'Cinzel', serif !important;
