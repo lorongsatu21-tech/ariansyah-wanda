@@ -519,15 +519,26 @@
     line-height:1.4 !important;
   }
   .acara-time{
-    display:block;
-    font-family:'Cinzel', 'Playfair Display', serif;
-    font-weight:700;
-    font-size: clamp(28px, 8.5vw, 36px);
-    letter-spacing:0.14em;
-    line-height:1.15;
+    display:block !important;
+    font-family:'Cinzel', Georgia, serif !important;
+    font-weight:700 !important;
+    font-size: 34px !important;
+    letter-spacing:0.16em !important;
+    line-height:1.1 !important;
     color:#E8D5A3 !important;
     font-variant-numeric: lining-nums tabular-nums;
-    margin: 8px 0 4px;
+    margin: 12px 0 6px !important;
+  }
+  @media (max-width: 420px){
+    .acara-time{ font-size: 32px !important; letter-spacing: 0.18em !important; }
+  }
+  .acara-zone{
+    font-family:'Jost', sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #E8D5A3 !important;
+    margin-bottom: 10px;
   }
   .acara-detail{
     font-family:'Cormorant Garamond', serif !important;
@@ -921,8 +932,9 @@
       <div class="acara-card glass-card">
         <div class="acara-kind">Akad Nikah</div>
         <div class="acara-date">Rabu, 21 Oktober 2026</div>
+        <div class="acara-time" aria-label="Pukul 13.30 WITA">13.30</div>
+        <div class="acara-zone">Pukul 13.30 WITA · s/d selesai</div>
         <div class="acara-detail">
-          Pukul <span class="acara-time">13.30</span> WITA<br>s/d selesai<br>
           Toko Prima Sanggar<br>
           Desa Sandue, Kec. Sanggar
         </div>
@@ -934,8 +946,9 @@
       <div class="acara-card glass-card">
         <div class="acara-kind">Resepsi</div>
         <div class="acara-date">Rabu, 21 Oktober 2026</div>
+        <div class="acara-time" aria-label="Pukul 14.30 WITA">14.30</div>
+        <div class="acara-zone">Pukul 14.30 WITA · s/d selesai</div>
         <div class="acara-detail">
-          Pukul <span class="acara-time">14.30</span> WITA<br>s/d selesai<br>
           Toko Prima Sanggar<br>
           Desa Sandue, Kec. Sanggar
         </div>
